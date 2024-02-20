@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.name }}</title>
+    <link rel="stylesheet" href="{% static "index/02.css" %}">
+    <link rel="stylesheet" href="{% static "index/04.css" %}">
+
+</head>
+<body>
+<div class="container">
+  <div class="image-viewer">
+    <div class="main-image">
+      <img src="/static/{{ data.link_img }}"/>
+    </div>
+    <div class="secondary-images">
+      <div class="secondary-image">
+        <img src="http://placehold.it/500x500/f4c242/black/"/>
+      </div>
+      <div class="secondary-image">
+        <img src="http://placehold.it/200x1000/42c8f4/black/"/>
+      </div>
+      <div class="secondary-image">
+        <img src="http://placehold.it/300x600/bf42f4/black/"/>
+      </div>
+      <div class="secondary-image">
+        <img src="http://placehold.it/3200x1800/f4425c/black/"/>
+      </div>
+    </div>
+  </div>
+  <div class="detail">
+    <h1 class="detail-name">{{ data.title }}</h1>
+    <div class="detail-long-description">
+      <p>{{ data.description }}</p>
+</div>
+  </div>
+  <div class="pricing">
+    <div class="pricing-price">${{ data.price }}</div>
+    <button class="btn pricing-btn">Add to Cart</button>
+  </div>
+  <div class="lightbox" id="lightbox">
+    <img src="http://placehold.it/650x650"/>
+    <div class="lightbox-controls">
+      <div class="lightbox-controls-close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <div class="lightbox-controls-previous">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </div>
+      <div class="lightbox-controls-next">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+<script src="{% static "index/01.js" %}"></script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Contenedor Principal -->
+	<div class="comments-container">
+		<h1>Comentarios <a href="http://creaticode.com">creaticode.com</a></h1>
+
+		<ul id="comments-list" class="comments-list">
+			<li>
+				<div class="comment-main-level">
+					<!-- Avatar -->
+					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+					<!-- Contenedor del Comentario -->
+
+
+                    {% for c in comments %}
+                    					<div class="comment-box">
+						<div class="comment-head">
+							<h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{ c.name }}</a></h6>
+							<span>{{ c.email }}</span>
+							<i class="fa fa-reply"></i>
+							<i class="fa fa-heart"></i>
+						</div>
+						<div class="comment-content">
+							{{ c.message }}
+						</div>
+					</div>
+                    {% endfor %}
+
+
+
+				</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

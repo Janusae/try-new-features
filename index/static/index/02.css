@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css?family=Amaranth|Quicksand');
+
+/* Coolors Exported Palette - coolors.co/efeeda-c5f4e0-c2eaba-a7c4a0-8f8389 */
+
+/* HSL */
+$color1: hsla(57%, 40%, 90%, 1);
+$color2: hsla(154%, 68%, 86%, 1);
+$color3: hsla(110%, 53%, 82%, 1);
+$color4: hsla(108%, 23%, 70%, 1);
+$color5: hsla(330%, 5%, 54%, 1);
+
+/* RGB */
+$color1: rgba(239, 238, 218, 1);
+$color2: rgba(197, 244, 224, 1);
+$color3: rgba(194, 234, 186, 1);
+$color4: rgba(167, 196, 160, 1);
+$color5: rgba(143, 131, 137, 1);
+
+$color-background: $color1;
+$color-text: lighten(black, 30%);
+$color-window: $color2;
+$color-lightbox-background: transparentize(darken($color-background, 20%), 0.1);
+$color-lightbox-controls: white;
+$color-lightbox-controls-background: darken($color-lightbox-background, 20%);
+
+$padding: 25px;
+$padding-small: $padding / 2;
+$padding-x-small: $padding / 4;
+
+$margin: $padding;
+$margin-small: $margin / 2;
+$margin-x-small: $margin / 4;
+$margin-large: $margin * 2;
+
+$height-control: 70px;
+$width-control: $height-control;
+
+//debug
+$show-borders: false;
+
+//mixins
+
+@mixin transition($property: "all", $duration: 0.5s, $delay: 0s, $ease: "ease-in-out"){
+  -webkit-transition: #{$property} $duration $delay #{$ease};
+  -moz-transition: #{$property} $duration $delay #{$ease};
+  -ms-transition: #{$property} $duration $delay #{$ease};
+  -o-transition: #{$property} $duration $delay #{$ease};
+  transition: #{$property} $duration $delay #{$ease};
+}
+
+
+html,body {
+  background-color: $color-background;
+  color: $color-text;
+  width:100%;
+  height:100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Amaranth', sans-serif;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-family: 'Quicksand', sans-serif;
+  }
+}
+
+.container {
+  padding: $padding;
+  background-color: $color-background;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.btn {
+  transition: all 0.3s ease-in-out;
+  font-family: 'Quicksand', sans-serif;
+  background-color: $color-background;
+  color: $color-text;
+  border: 1px solid $color-text;
+  padding: $padding-small;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-text;
+    color: $color-background;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transition: all 0.1s ease-in-out;
+    background-color: $color-background;
+    color: $color-text;
+  }
+}
+
+.image-viewer {
+  margin: $margin;
+  @if $show-borders {
+    border: 1px solid $color4;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .main-image {
+    width: 300px;
+    height: 300px;
+    align-self: center;
+    text-align:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      cursor: zoom-in;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+    }
+  }
+  .secondary-images {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .secondary-image {
+      padding: $padding-x-small;
+      height: 50px;
+      img {
+        cursor: pointer;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+}
+
+.section {
+  padding: $padding-small;
+  @if $show-borders {
+    border: 1px solid $color4;
+  }
+}
+
+
+.pricing {
+  @extend .section;
+  width: 15%;
+  padding: $padding-small;
+  //margin-top: $margin-x-small;
+
+  &-price {
+    text-align: right;
+    margin: $margin-small 0;
+    font-size: 3em;
+  }
+
+  &-btn {
+    width: 100%;
+  }
+}
+
+.detail {
+  @extend .section;
+  width: 30%;
+
+  .detail-short-description {
+    margin-top: 2em;
+  }
+
+  .detail-long-description {
+    margin-top: 3em;
+    font-size: 0.8rem;
+  }
+}
+
+.lightbox {
+  @include transition($delay:0s);
+  position:fixed;
+  top:-100%;
+  bottom:100%;
+  left:0;
+  right:0;
+  background: $color-lightbox-background;
+  z-index:501;
+  opacity:0;
+  img {
+    position:absolute;
+    margin:auto;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    max-width:0%;
+    max-height:0%;
+  }
+
+  .lightbox-controls {
+    position: relative;
+    height: 100vh;
+
+
+    .lightbox-control {
+      height: $height-control;
+      width: $width-control;
+      position: absolute;
+      z-index: 502;
+      background: $color-lightbox-controls-background;
+      color: $color-lightbox-controls;
+      font-size: 3em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .lightbox-controls-close {
+      @extend .lightbox-control;
+      position: absolute;
+      top:0%;
+      right:0%;
+      //@include transition($delay: 0s);
+    }
+
+    .lightbox-controls-previous {
+      @extend .lightbox-control;
+      position: absolute;
+      top:50%;
+      left:-20%;
+      @include transition($delay: 0s);
+    }
+
+    .lightbox-controls-next {
+      @extend .lightbox-control;
+      position: absolute;
+      top:50%;
+      right:-20%;
+      @include transition($delay: 0s);
+    }
+  }
+}
+
+.lightbox.show {
+  @include transition();
+  top:0%;
+  bottom:0%;
+  opacity:1;
+
+  img {
+    @include transition($delay: 0.5s);
+    max-width:100%;
+    max-height:100%;
+  }
+
+  .lightbox-controls {
+
+    .lightbox-controls-previous {
+      @extend .lightbox-control;
+      position: absolute;
+      top:50%;
+      left:0%;
+      @include transition($delay: 0.75s);
+    }
+
+    .lightbox-controls-next {
+      @extend .lightbox-control;
+      position: absolute;
+      top:50%;
+      right:0%;
+      @include transition($delay: 0.75s);
+    }
+  }
+}
